@@ -1,4 +1,5 @@
 from random import randint
+
 turn_limit = 5		 	#Adjustable turn limit.
 board_height = 5		#Adjustable row size.
 board_width = 5			#Adjustable column size.
@@ -27,11 +28,12 @@ def random_row(board):
 def random_col(board):
     	return randint(0, (board_width - 1))
 
+#Setting ship location.
 ship_row = random_row(board)
 ship_col = random_col(board)
 
 
-
+#Cycling through player turns.
 for turn in range(turn_limit):
 	if turn == turn_limit-1:
 		print 'Last turn!'
@@ -41,10 +43,14 @@ for turn in range(turn_limit):
 
 	print_board(board)
 
-
-     	guess_row = int(raw_input("Guess Row: ")) - 1
-    	guess_col = int(raw_input("Guess Column: ")) - 1
-   
+	try:
+     		guess_row = int(raw_input("Guess Row: ")) - 1
+    	except:
+		guess_row = ''
+	try:
+		guess_col = int(raw_input("Guess Column: ")) - 1
+   	except: 
+		guess_col = ''
 
     	if guess_row == ship_row and guess_col == ship_col:
         	print "CONGRATULATIONS! You sunk my battleship!"
@@ -52,11 +58,16 @@ for turn in range(turn_limit):
 		board[guess_row][guess_col] = '#'
 		board[ship_row][ship_col] = '#'
 	       	break
+        elif guess_row == '' or guess_col == '':
+            	print "Oops, didn't quite catch that.."
+		print
     	elif (guess_row < 0 or guess_row > (board_height-1)) or (guess_col < 0 or guess_col > (board_width-1)):
         	print "Oops, that's not even in the ocean."
-    	elif(board[guess_row][guess_col] == "X"):
+		print
+   	elif(board[guess_row][guess_col] == "X"):
         	print "You guessed that one already."
-  	else:
+  		print
+	else:
         	print "You missed my battleship!"
 		print
         	if turn == turn_limit-1:
@@ -64,5 +75,5 @@ for turn in range(turn_limit):
 		board[guess_row][guess_col] = "X"
 
 print_board(board)
-print 'My ship was located at Row ' + str(ship_row + 1) + " Column " + str(ship_co + 1l) + "!"
+print 'My ship was located at Row ' + str(ship_row + 1) + " Column " + str(ship_col + 1l) + "!"
 
