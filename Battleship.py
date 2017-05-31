@@ -34,11 +34,12 @@ ship_col = random_col(board)
 
 
 #Cycling through player turns.
-for turn in range(turn_limit):
-	if turn == turn_limit-1:
+turn = 1
+while turn <= 5:
+	if turn == turn_limit:
 		print 'Last turn!'
         else :
-		print "Turn", str( (turn + 1) )
+		print "Turn", str( (turn) )
 
 
 	print_board(board)
@@ -61,18 +62,23 @@ for turn in range(turn_limit):
         elif guess_row == '' or guess_col == '':
             	print "Oops, didn't quite catch that.."
 		print
+		turn -= 1
     	elif (guess_row < 0 or guess_row > (board_height-1)) or (guess_col < 0 or guess_col > (board_width-1)):
         	print "Oops, that's not even in the ocean."
 		print
+		turn -= 1
    	elif(board[guess_row][guess_col] == "X"):
         	print "You guessed that one already."
   		print
+		turn -= 1
 	else:
         	print "You missed my battleship!"
 		print
         	if turn == turn_limit-1:
 			print 'Better luck next time!'
 		board[guess_row][guess_col] = "X"
+	
+	turn += 1
 
 print_board(board)
 print 'My ship was located at Row ' + str(ship_row + 1) + " Column " + str(ship_col + 1l) + "!"
